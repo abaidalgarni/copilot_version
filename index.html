@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAR-T Therapy Atlas | March 2026</title>
+  <meta name="description" content="A March 23, 2026 snapshot of how CAR-T therapies work, where they fail, what is approved in the US, and which next-generation trials are active.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2316262d'/%3E%3Ccircle cx='24' cy='32' r='13' fill='%230f6b66'/%3E%3Ccircle cx='42' cy='32' r='11' fill='%23c65b3f'/%3E%3Cpath d='M30 26 L36 26 L39 20 M30 38 L36 38 L39 44' stroke='%23f5efe5' stroke-width='3' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5efe5;
+      --bg-soft: rgba(255, 255, 255, 0.72);
+      --paper: rgba(255, 250, 243, 0.88);
+      --ink: #16262d;
+      --muted: #55666f;
+      --teal: #0f6b66;
+      --teal-dark: #12434b;
+      --rust: #c65b3f;
+      --gold: #cf9d2b;
+      --cobalt: #2e6f9e;
+      --sage: #6f8a63;
+      --line: rgba(22, 38, 45, 0.12);
+      --shadow: 0 22px 60px rgba(19, 45, 52, 0.12);
+      --shadow-tight: 0 10px 24px rgba(19, 45, 52, 0.1);
+      --radius: 26px;
+      --max: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(207, 157, 43, 0.16), transparent 24rem),
+        radial-gradient(circle at 86% 16%, rgba(15, 107, 102, 0.18), transparent 22rem),
+        radial-gradient(circle at 84% 78%, rgba(198, 91, 63, 0.12), transparent 26rem),
+        linear-gradient(180deg, #f7f0e5 0%, #f3ede0 58%, #efe7d8 100%);
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.3;
+      background:
+        linear-gradient(90deg, rgba(22, 38, 45, 0.02) 1px, transparent 1px),
+        linear-gradient(rgba(22, 38, 45, 0.02) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent 92%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    img, svg {
+      max-width: 100%;
+      display: block;
+    }
+
+    .shell {
+      position: relative;
+      overflow: clip;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(18px);
+      opacity: 0.55;
+      mix-blend-mode: multiply;
+      animation: drift 16s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .orb.one {
+      top: 4rem;
+      right: -7rem;
+      width: 16rem;
+      height: 16rem;
+      background: rgba(46, 111, 158, 0.17);
+    }
+
+    .orb.two {
+      top: 34rem;
+      left: -6rem;
+      width: 14rem;
+      height: 14rem;
+      background: rgba(198, 91, 63, 0.13);
+      animation-delay: -5s;
+    }
+
+    .orb.three {
+      bottom: 12rem;
+      right: 8%;
+      width: 12rem;
+      height: 12rem;
+      background: rgba(15, 107, 102, 0.18);
+      animation-delay: -9s;
+    }
+
+    .wrap {
+      width: min(calc(100% - 2rem), var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(245, 239, 229, 0.75);
+      border-bottom: 1px solid rgba(22, 38, 45, 0.08);
+    }
+
+    .topbar .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.95rem 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+
+    .brand-mark {
+      width: 2.6rem;
+      height: 2.6rem;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 35%, #f7f0d9 0 16%, transparent 17%),
+        radial-gradient(circle at 58% 40%, rgba(255, 255, 255, 0.92) 0 11%, transparent 12%),
+        radial-gradient(circle at center, #0f6b66 0 45%, #0d5652 46% 100%);
+      box-shadow: inset 0 0 0 8px rgba(255, 255, 255, 0.28);
+      position: relative;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 0.36rem;
+      border: 1px dashed rgba(255, 255, 255, 0.55);
+      border-radius: 50%;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--muted);
+      border: 1px solid rgba(22, 38, 45, 0.08);
+      padding: 0.5rem 0.82rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.55);
+      transition: transform 160ms ease, border-color 160ms ease, color 160ms ease;
+      font-size: 0.92rem;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      transform: translateY(-1px);
+      color: var(--ink);
+      border-color: rgba(15, 107, 102, 0.35);
+      outline: none;
+    }
+
+    .hero {
+      padding: 4.8rem 0 3.2rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.55rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(22, 38, 45, 0.08);
+      color: var(--teal-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+      line-height: 0.96;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin-top: 1.2rem;
+      font-size: clamp(3.2rem, 7vw, 6.3rem);
+      max-width: 10ch;
+    }
+
+    .hero p {
+      max-width: 62ch;
+      color: var(--muted);
+      font-size: 1.03rem;
+      line-height: 1.75;
+      margin: 1.25rem 0 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 1.6rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1.15rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .button.primary {
+      background: var(--ink);
+      color: #fff7ee;
+      box-shadow: var(--shadow-tight);
+    }
+
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.6);
+      color: var(--ink);
+      border-color: rgba(22, 38, 45, 0.1);
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.9rem;
+      margin-top: 1.75rem;
+    }
+
+    .metric {
+      border-radius: 20px;
+      padding: 1rem 1rem 1.05rem;
+      background: rgba(255, 255, 255, 0.63);
+      border: 1px solid rgba(22, 38, 45, 0.08);
+      box-shadow: var(--shadow-tight);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.65rem;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+      color: var(--teal-dark);
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .hero-visual {
+      position: relative;
+      padding: 1.1rem;
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 18% 22%, rgba(15, 107, 102, 0.16), transparent 20rem),
+        radial-gradient(circle at 84% 18%, rgba(198, 91, 63, 0.18), transparent 18rem),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.78), rgba(255, 248, 239, 0.55));
+      border: 1px solid rgba(22, 38, 45, 0.08);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      inset: auto 1rem 1rem auto;
+      width: 7rem;
+      height: 7rem;
+      border-radius: 50%;
+      border: 1px dashed rgba(15, 107, 102, 0.18);
+    }
+
+    .visual-caption {
+      margin-top: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .caption-pill {
+      padding: 0.5rem 0.78rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      border: 1px solid rgba(22, 38, 45, 0.08);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--muted);
+    }
+
+    main {
+      padding-bottom: 4rem;
+    }
+
+    section {
+      padding: 2rem 0;
+    }
+
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem 2rem;
+      margin-bottom: 1.35rem;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2rem, 4.2vw, 3.3rem);
+      max-width: 11ch;
+    }
+
+    .section-head p {
+      max-width: 56ch;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .panel {
+      background: var(--paper);
+      border: 1px solid rgba(22, 38, 45, 0.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-tight);
+      padding: 1.35rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .panel h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .panel p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.72;
+    }
+
+    .span-5 { grid-column: span 5; }
+    .span-7 { grid-column: span 7; }
+    .span-4 { grid-column: span 4; }
+    .span-6 { grid-column: span 6; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: 1 / -1; }
+
+    .list {
+      display: grid;
+      gap: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    .list-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.85rem;
+      padding: 0.9rem 0.95rem;
+      border-radius: 18px;
+      border: 1px solid rgba(22, 38, 45, 0.08);
+      background: rgba(255, 255, 255, 0.55);
+    }
+
+    .list-item strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .list-item span {
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.55;
+    }
+
+    .step-badge {
+      width: 2rem;
+      height: 2rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--ink);
+      color: #fff7ee;
+      font-weight: 700;
+      font-size: 0.88rem;
+      margin-top: 0.15rem;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 1rem;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.48rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid rgba(22, 38, 45, 0.08);
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .dot {
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 50%;
+    }
+
+    .dot.teal { background: var(--teal); }
+    .dot.rust { background: var(--rust); }
+    .dot.gold { background: var(--gold); }
+    .dot.cobalt { background: var(--cobalt); }
+
+    .compare {
+      display: grid;
+      gap: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .lane {
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid rgba(22, 38, 45, 0.08);
+      padding: 1rem;
+    }
+
+    .lane-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.8rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .lane h4 {
+      margin: 0;
+      font-size: 1.08rem;
+    }
+
+    .lane small {
+      color: var(--muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .bar {
+      height: 0.7rem;
+      border-radius: 999px;
+      background: rgba(22, 38, 45, 0.08);
+      overflow: hidden;
+      margin-top: 0.7rem;
+    }
+
+    .bar > span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--teal) 0%, var(--gold) 100%);
+    }
+
+    .risk-grid,
+    .product-grid,
+    .source-grid,
+    .trial-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .risk-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 1rem;
+    }
+
+    .risk-card,
+    .product-card,
+    .source-card,
+    .trial-card,
+    .stat-card {
+      padding: 1.05rem;
+      border-radius: 22px;
+      border: 1px solid rgba(22, 38, 45, 0.08);
+      background: rgba(255, 255, 255, 0.63);
+      box-shadow: var(--shadow-tight);
+    }
+
+    .risk-card h4,
+    .product-card h4,
+    .source-card h4,
+    .trial-card h4 {
+      margin: 0 0 0.45rem;
+      font-size: 1.02rem;
+      line-height: 1.3;
+    }
+
+    .risk-card p,
+    .product-card p,
+    .source-card p,
+    .trial-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .toxicity {
+      margin-top: 1rem;
+      padding: 1rem 1.05rem;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(198, 91, 63, 0.12), rgba(207, 157, 43, 0.12));
+      border: 1px solid rgba(198, 91, 63, 0.18);
+    }
+
+    .toxicity strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0.95rem;
+      margin-top: 1rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 8rem 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem;
+      border-radius: 20px;
+      border: 1px solid rgba(22, 38, 45, 0.08);
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .timeline-year {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 1.8rem;
+      color: var(--teal-dark);
+      line-height: 1;
+    }
+
+    .timeline-body strong {
+      display: block;
+      margin-bottom: 0.2rem;
+      font-size: 1rem;
+    }
+
+    .timeline-body span {
+      color: var(--muted);
+      line-height: 1.58;
+      font-size: 0.95rem;
+    }
+
+    .product-grid {
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      margin-top: 1rem;
+    }
+
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      min-height: 16.5rem;
+    }
+
+    .product-tag,
+    .status-badge,
+    .filter-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.42rem 0.72rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 700;
+      border: 1px solid rgba(22, 38, 45, 0.08);
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--muted);
+    }
+
+    .product-card a,
+    .trial-card a,
+    .source-card a {
+      color: var(--teal-dark);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .product-card a:hover,
+    .trial-card a:hover,
+    .source-card a:hover {
+      text-decoration: underline;
+    }
+
+    .product-target {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--teal-dark);
+      font-weight: 700;
+    }
+
+    .inference {
+      margin-top: 1rem;
+      padding: 0.95rem 1rem;
+      border-radius: 18px;
+      border: 1px dashed rgba(22, 38, 45, 0.16);
+      color: var(--muted);
+      line-height: 1.6;
+      background: rgba(255, 255, 255, 0.48);
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin: 1.15rem 0 1rem;
+    }
+
+    .filter-button {
+      cursor: pointer;
+      transition: transform 160ms ease, color 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .filter-button:hover,
+    .filter-button:focus-visible {
+      transform: translateY(-1px);
+      color: var(--ink);
+      border-color: rgba(15, 107, 102, 0.32);
+      outline: none;
+    }
+
+    .filter-button.active {
+      background: var(--ink);
+      color: #fff7ee;
+      border-color: var(--ink);
+    }
+
+    .snapshot-stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .stat-card strong {
+      display: block;
+      font-size: 1.85rem;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+      color: var(--teal-dark);
+    }
+
+    .stat-card span {
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 0.92rem;
+    }
+
+    .trial-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 1rem;
+    }
+
+    .trial-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .trial-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 0.8rem;
+    }
+
+    .trial-meta,
+    .source-meta {
+      display: grid;
+      gap: 0.42rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .trial-meta strong,
+    .source-meta strong {
+      color: var(--ink);
+      font-size: 0.9rem;
+      display: inline;
+    }
+
+    .status-badge.recruiting {
+      background: rgba(15, 107, 102, 0.12);
+      color: var(--teal-dark);
+      border-color: rgba(15, 107, 102, 0.24);
+    }
+
+    .status-badge.not-yet-recruiting {
+      background: rgba(207, 157, 43, 0.16);
+      color: #725515;
+      border-color: rgba(207, 157, 43, 0.28);
+    }
+
+    .status-badge.active {
+      background: rgba(46, 111, 158, 0.12);
+      color: var(--cobalt);
+      border-color: rgba(46, 111, 158, 0.24);
+    }
+
+    .trial-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .mini-tag {
+      font-size: 0.76rem;
+      padding: 0.34rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(22, 38, 45, 0.08);
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.55);
+    }
+
+    .trial-card[hidden] {
+      display: none;
+    }
+
+    .source-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 1rem;
+    }
+
+    .source-card {
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    .source-number {
+      width: 2rem;
+      height: 2rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--ink);
+      color: #fff7ee;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      line-height: 1.72;
+      margin-top: 1.4rem;
+      font-size: 0.95rem;
+    }
+
+    .source-link {
+      color: var(--teal-dark);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .source-link:hover {
+      text-decoration: underline;
+    }
+
+    .fade {
+      opacity: 1;
+      transform: none;
+    }
+
+    .fade.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(0, -12px, 0) scale(1.04); }
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .risk-grid,
+      .trial-grid,
+      .source-grid,
+      .snapshot-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .span-5,
+      .span-7,
+      .span-4,
+      .span-6,
+      .span-8 {
+        grid-column: span 12;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .topbar {
+        position: static;
+      }
+
+      .topbar .wrap {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .nav {
+        width: 100%;
+      }
+
+      .hero {
+        padding-top: 2.2rem;
+      }
+
+      .hero-grid,
+      .hero-metrics,
+      .risk-grid,
+      .product-grid,
+      .trial-grid,
+      .source-grid,
+      .snapshot-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head h2 {
+        max-width: none;
+      }
+
+      .timeline-year {
+        font-size: 1.4rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .orb,
+      .fade,
+      .button,
+      .nav a,
+      .filter-button {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <div>
+            <div>CAR-T Therapy Atlas</div>
+            <div style="color: var(--muted); font-weight: 500; text-transform: none; letter-spacing: 0;">March 23, 2026 snapshot</div>
+          </div>
+        </div>
+        <nav class="nav" aria-label="Page sections">
+          <a href="#mechanism">Mechanism</a>
+          <a href="#pressure-points">Pressure Points</a>
+          <a href="#approved">Approved</a>
+          <a href="#trials">Trials</a>
+          <a href="#sources">Sources</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="wrap hero-grid">
+          <div class="fade">
+            <div class="eyebrow">Aggressive web synthesis, then design</div>
+            <h1>How CAR-T therapies work, where they break, and where the field is moving.</h1>
+            <p>
+              CAR-T is not just a drug. It is a manufactured immune program: collect T cells, rewrite them to recognize a tumor antigen, expand them outside the body, then send them back as a living cytotoxic population that can proliferate, persist, and sometimes clear disease for years.
+              This page locks the landscape to <strong>March 23, 2026</strong>, separates stable biology from time-sensitive trial activity, and focuses on what matters mechanistically.
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="#mechanism">See the mechanism</a>
+              <a class="button secondary" href="#trials">Open the trial horizon</a>
+            </div>
+            <div class="hero-metrics" aria-label="Key snapshot metrics">
+              <article class="metric">
+                <strong>7</strong>
+                <span>FDA-approved CAR-T products in the US, split across CD19 and BCMA targets.</span>
+              </article>
+              <article class="metric">
+                <strong>2</strong>
+                <span>Dominant approved antigen classes: <strong>CD19</strong> and <strong>BCMA</strong>.</span>
+              </article>
+              <article class="metric">
+                <strong>0</strong>
+                <span>FDA-approved CAR-T products for solid tumors in the US. This is an inference from current FDA product pages.</span>
+              </article>
+            </div>
+          </div>
+
+          <div class="hero-visual fade">
+            <svg viewBox="0 0 760 620" role="img" aria-label="Diagram of CAR-T binding a tumor cell and initiating signaling">
+              <defs>
+                <linearGradient id="tCellFill" x1="0%" x2="100%">
+                  <stop offset="0%" stop-color="#0f6b66"></stop>
+                  <stop offset="100%" stop-color="#1d8a83"></stop>
+                </linearGradient>
+                <linearGradient id="tumorFill" x1="0%" x2="100%">
+                  <stop offset="0%" stop-color="#c65b3f"></stop>
+                  <stop offset="100%" stop-color="#d99252"></stop>
+                </linearGradient>
+                <linearGradient id="signalFill" x1="0%" x2="100%">
+                  <stop offset="0%" stop-color="#2e6f9e"></stop>
+                  <stop offset="100%" stop-color="#cf9d2b"></stop>
+                </linearGradient>
+              </defs>
+
+              <rect x="0" y="0" width="760" height="620" rx="30" fill="rgba(255,255,255,0.2)"></rect>
+
+              <g>
+                <circle cx="208" cy="320" r="132" fill="url(#tCellFill)" opacity="0.95"></circle>
+                <circle cx="208" cy="320" r="90" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.35)" stroke-width="2"></circle>
+                <text x="208" y="326" text-anchor="middle" fill="#fef8ef" font-family="Space Grotesk, sans-serif" font-size="28" font-weight="700">CAR-T</text>
+                <text x="208" y="356" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Space Grotesk, sans-serif" font-size="16">engineered autologous T cell</text>
+              </g>
+
+              <g>
+                <circle cx="558" cy="320" r="122" fill="url(#tumorFill)" opacity="0.94"></circle>
+                <circle cx="558" cy="320" r="84" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.3)" stroke-width="2"></circle>
+                <text x="558" y="326" text-anchor="middle" fill="#fff7ef" font-family="Space Grotesk, sans-serif" font-size="28" font-weight="700">Tumor Cell</text>
+                <text x="558" y="356" text-anchor="middle" fill="rgba(255,255,255,0.82)" font-family="Space Grotesk, sans-serif" font-size="16">CD19 / BCMA / emerging targets</text>
+              </g>
+
+              <g stroke="#16262d" stroke-width="8" stroke-linecap="round" fill="none">
+                <path d="M300 300 C350 230, 405 230, 450 290"></path>
+                <path d="M300 340 C348 408, 405 410, 450 350"></path>
+              </g>
+
+              <g fill="#fdf4e8" stroke="#16262d" stroke-width="4">
+                <rect x="301" y="278" width="28" height="85" rx="14"></rect>
+                <rect x="334" y="295" width="24" height="50" rx="12"></rect>
+                <rect x="361" y="295" width="25" height="50" rx="12"></rect>
+                <rect x="392" y="284" width="30" height="73" rx="15" fill="#cf9d2b"></rect>
+                <rect x="427" y="272" width="34" height="97" rx="16" fill="#2e6f9e"></rect>
+              </g>
+
+              <g font-family="Space Grotesk, sans-serif" font-size="14" font-weight="700" fill="#16262d">
+                <text x="315" y="263" text-anchor="middle">scFv</text>
+                <text x="347" y="282" text-anchor="middle">hinge</text>
+                <text x="374" y="282" text-anchor="middle">TM</text>
+                <text x="408" y="268" text-anchor="middle">4-1BB / CD28</text>
+                <text x="444" y="257" text-anchor="middle">CD3z</text>
+              </g>
+
+              <g>
+                <path d="M462 252 C510 220, 516 176, 492 134" stroke="url(#signalFill)" stroke-width="6" fill="none" stroke-linecap="round"></path>
+                <circle cx="492" cy="134" r="10" fill="#2e6f9e"></circle>
+                <text x="520" y="136" font-family="Space Grotesk, sans-serif" font-size="15" font-weight="700" fill="#16262d">Activation cascade</text>
+                <text x="520" y="158" font-family="Space Grotesk, sans-serif" font-size="13" fill="#55666f">CD3z -> ZAP-70 -> LAT -> NFAT / NF-kB / AP-1</text>
+              </g>
+
+              <g>
+                <path d="M466 394 C517 422, 533 462, 516 506" stroke="#c65b3f" stroke-width="6" fill="none" stroke-linecap="round"></path>
+                <circle cx="516" cy="506" r="10" fill="#c65b3f"></circle>
+                <text x="546" y="506" font-family="Space Grotesk, sans-serif" font-size="15" font-weight="700" fill="#16262d">Cytolysis</text>
+                <text x="546" y="528" font-family="Space Grotesk, sans-serif" font-size="13" fill="#55666f">perforin, granzymes, death-receptor signaling</text>
+              </g>
+
+              <g fill="#cf9d2b">
+                <circle cx="465" cy="318" r="8"></circle>
+                <circle cx="484" cy="290" r="6"></circle>
+                <circle cx="503" cy="342" r="7"></circle>
+                <circle cx="520" cy="299" r="5"></circle>
+              </g>
+              <text x="470" y="372" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="700" fill="#725515">cytokine burst + clonal expansion</text>
+            </svg>
+
+            <div class="visual-caption">
+              <span class="caption-pill">Build ex vivo</span>
+              <span class="caption-pill">Bind surface antigen</span>
+              <span class="caption-pill">Signal through costim + CD3z</span>
+              <span class="caption-pill">Kill, expand, persist</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="mechanism">
+        <div class="wrap">
+          <div class="section-head fade">
+            <div>
+              <h2>The Mechanism</h2>
+            </div>
+            <p>
+              The CAR is a modular receptor mounted onto a T cell. Commercial CAR-T products still mostly use second-generation constructs: an extracellular binder, a transmembrane segment, one costimulatory domain, and CD3z signaling. What follows is a staged immune program, not a single pharmacologic event.
+            </p>
+          </div>
+
+          <div class="card-grid">
+            <article class="panel span-5 fade">
+              <h3>Blueprint of a CAR</h3>
+              <p>
+                The extracellular region recognizes a surface antigen on the target cell. The intracellular region converts that binding event into T-cell activation, proliferation, cytokine secretion, and cytotoxicity. NCI's overview highlights the same broad architecture across approved products, even though specific binders and signaling modules differ.
+              </p>
+              <div class="legend" aria-label="CAR module legend">
+                <span><i class="dot rust" aria-hidden="true"></i> Antigen recognition</span>
+                <span><i class="dot gold" aria-hidden="true"></i> Costimulation</span>
+                <span><i class="dot cobalt" aria-hidden="true"></i> CD3z signaling</span>
+                <span><i class="dot teal" aria-hidden="true"></i> Cellular expansion</span>
+              </div>
+              <div class="list">
+                <div class="list-item">
+                  <div class="step-badge">A</div>
+                  <div>
+                    <strong>scFv or binding domain</strong>
+                    <span>Targets a surface antigen such as CD19 or BCMA and determines what the T cell can see.</span>
+                  </div>
+                </div>
+                <div class="list-item">
+                  <div class="step-badge">B</div>
+                  <div>
+                    <strong>Hinge and transmembrane region</strong>
+                    <span>Controls geometry, flexibility, and how the receptor sits in the membrane.</span>
+                  </div>
+                </div>
+                <div class="list-item">
+                  <div class="step-badge">C</div>
+                  <div>
+                    <strong>Costimulatory domain</strong>
+                    <span>Usually <strong>CD28</strong> or <strong>4-1BB</strong>; this materially shapes kinetics, metabolism, and persistence.</span>
+                  </div>
+                </div>
+                <div class="list-item">
+                  <div class="step-badge">D</div>
+                  <div>
+                    <strong>CD3z signaling chain</strong>
+                    <span>Provides the core activation signal that launches the cytotoxic program once antigen is engaged.</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="panel span-7 fade">
+              <h3>How the sequence actually unfolds</h3>
+              <p>
+                Commercial CAR-T is best understood as a staged lifecycle: manufacturing, conditioning, in vivo expansion, tumor killing, and persistence. The first two steps happen before the infused cells ever touch a cancer cell.
+              </p>
+              <div class="list" aria-label="CAR-T steps from collection to persistence">
+                <div class="list-item">
+                  <div class="step-badge">1</div>
+                  <div>
+                    <strong>Leukapheresis and manufacturing</strong>
+                    <span>T cells are collected from the patient, genetically modified ex vivo to express a CAR, then expanded. NCI describes the current commercial interval from collection to infusion as roughly 3 to 5 weeks.</span>
+                  </div>
+                </div>
+                <div class="list-item">
+                  <div class="step-badge">2</div>
+                  <div>
+                    <strong>Lymphodepletion</strong>
+                    <span>Fludarabine/cyclophosphamide regimens are commonly used before infusion to make physiologic space for the incoming cells and support early expansion.</span>
+                  </div>
+                </div>
+                <div class="list-item">
+                  <div class="step-badge">3</div>
+                  <div>
+                    <strong>Antigen recognition</strong>
+                    <span>The engineered receptor binds a tumor-surface antigen directly without MHC restriction, one reason CAR-T works especially well in B-cell malignancies.</span>
+                  </div>
+                </div>
+                <div class="list-item">
+                  <div class="step-badge">4</div>
+                  <div>
+                    <strong>Immune synapse and signaling</strong>
+                    <span>Binding initiates CD3z phosphorylation, ZAP-70 recruitment, LAT signaling, and transcriptional programs such as NFAT, NF-kB, and AP-1, which collectively drive activation, proliferation, and effector function.</span>
+                  </div>
+                </div>
+                <div class="list-item">
+                  <div class="step-badge">5</div>
+                  <div>
+                    <strong>Cytotoxic execution</strong>
+                    <span>Activated cells form a productive synapse and kill target cells through perforin/granzyme release, additional death-receptor signaling, and cytokine-mediated amplification of immunity.</span>
+                  </div>
+                </div>
+                <div class="list-item">
+                  <div class="step-badge">6</div>
+                  <div>
+                    <strong>Expansion, contraction, persistence</strong>
+                    <span>Clinical kinetics are multiphasic: distribution, rapid expansion, contraction, then a persistence phase. Modeling and translational studies place the expansion peak at roughly the first two weeks in many patients.</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="pressure-points">
+        <div class="wrap">
+          <div class="section-head fade">
+            <div>
+              <h2>Pressure Points</h2>
+            </div>
+            <p>
+              The field now understands that CAR-T outcomes are shaped by a tension between immediate potency, long-term persistence, antigen stability, and the hostility of the tumor environment. This is why next-generation programs keep returning to the same design themes: dual targeting, armored constructs, genome editing, and off-the-shelf manufacturing.
+            </p>
+          </div>
+
+          <div class="card-grid">
+            <article class="panel span-4 fade">
+              <h3>Potency vs persistence</h3>
+              <p>
+                A 2026 review comparing CD28- and 4-1BB-based CD19 CAR-T products describes a recurring pattern: <strong>CD28</strong> tends toward faster expansion and stronger initial punch, while <strong>4-1BB</strong> tends toward deeper persistence and longer memory-like behavior.
+              </p>
+              <div class="compare">
+                <div class="lane">
+                  <div class="lane-head">
+                    <h4>CD28-biased profile</h4>
+                    <small>rapid response</small>
+                  </div>
+                  <p>Useful when fast expansion matters; may trade some durability for early intensity.</p>
+                  <div class="bar" aria-hidden="true"><span style="width: 88%;"></span></div>
+                </div>
+                <div class="lane">
+                  <div class="lane-head">
+                    <h4>4-1BB-biased profile</h4>
+                    <small>longer persistence</small>
+                  </div>
+                  <p>Often associated with slower but more durable persistence across current commercial designs.</p>
+                  <div class="bar" aria-hidden="true"><span style="width: 72%; background: linear-gradient(90deg, var(--cobalt) 0%, var(--teal) 100%);"></span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="panel span-8 fade">
+              <h3>Why remission fails</h3>
+              <p>
+                Resistance is now understood as a layered systems problem, not a single escape route. Antigen loss is central in CD19 disease, but CAR-T dysfunction and tumor ecology matter just as much.
+              </p>
+              <div class="risk-grid">
+                <article class="risk-card">
+                  <h4>Antigen escape</h4>
+                  <p>Tumor cells can lose or downregulate CD19 or evolve heterogeneous target expression, which directly weakens target engagement.</p>
+                </article>
+                <article class="risk-card">
+                  <h4>T-cell exhaustion</h4>
+                  <p>Poor starting material, chronic stimulation, and suppressive signaling can produce less durable, less proliferative cell products.</p>
+                </article>
+                <article class="risk-card">
+                  <h4>Microenvironmental blockade</h4>
+                  <p>Hypoxia, nutrient deprivation, TGF-beta, IL-10, suppressive myeloid cells, and checkpoint signaling all inhibit function.</p>
+                </article>
+                <article class="risk-card">
+                  <h4>Trafficking failure</h4>
+                  <p>Solid tumors remain hard because the cells must reach the lesion, persist there, and still find a safe antigen once they arrive.</p>
+                </article>
+              </div>
+              <div class="toxicity">
+                <strong>Safety watch, March 2026</strong>
+                CRS and ICANS remain the headline toxicities, but prolonged cytopenias, infection risk, hypogammaglobulinemia, and on-target B-cell depletion still matter clinically. FDA also maintains a class-level concern about rare post-treatment T-cell malignancies in autologous BCMA- and CD19-directed CAR-T, and the CARVYKTI page shows the 2025 boxed-warning update for immune effector cell-associated enterocolitis.
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="approved">
+        <div class="wrap">
+          <div class="section-head fade">
+            <div>
+              <h2>US Approved Landscape</h2>
+            </div>
+            <p>
+              The FDA product roster current through late February and March 2026 shows a still concentrated market: approved CAR-T remains a hematologic modality, dominated by <strong>CD19</strong> and <strong>BCMA</strong>. The key 2025 shift was expansion of BREYANZI into marginal zone lymphoma.
+            </p>
+          </div>
+
+          <article class="panel fade">
+            <h3>Approval arc</h3>
+            <p>
+              Product approvals began in 2017 and expanded steadily across leukemias, aggressive lymphomas, follicular lymphoma, mantle cell lymphoma, CLL/SLL, multiple myeloma, and now marginal zone lymphoma.
+            </p>
+            <div class="timeline" aria-label="Timeline of US CAR-T product approvals">
+              <div class="timeline-item">
+                <div class="timeline-year">2017</div>
+                <div class="timeline-body">
+                  <strong>Kymriah and Yescarta</strong>
+                  <span>The first US CAR-T wave established CD19 as the dominant hematologic target.</span>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-year">2020</div>
+                <div class="timeline-body">
+                  <strong>Tecartus</strong>
+                  <span>Extended CD19 CAR-T into mantle cell lymphoma, then later into adult B-ALL.</span>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-year">2021</div>
+                <div class="timeline-body">
+                  <strong>Breyanzi and Abecma</strong>
+                  <span>Added another CD19 platform and opened the BCMA chapter in multiple myeloma.</span>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-year">2022</div>
+                <div class="timeline-body">
+                  <strong>Carvykti</strong>
+                  <span>Strengthened the BCMA class and later moved earlier in lenalidomide-refractory myeloma.</span>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-year">2024</div>
+                <div class="timeline-body">
+                  <strong>Aucatzyl</strong>
+                  <span>Added obecabtagene autoleucel for adult relapsed or refractory B-cell precursor ALL.</span>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-year">2025</div>
+                <div class="timeline-body">
+                  <strong>BREYANZI reaches MZL</strong>
+                  <span>FDA approved BREYANZI as the first US CAR-T indication for marginal zone lymphoma.</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <div class="product-grid fade" aria-label="FDA-approved CAR-T products">
+            <article class="product-card">
+              <span class="product-tag">CD19</span>
+              <div>
+                <h4>Kymriah</h4>
+                <p>Pediatric/young-adult B-ALL, adult large B-cell lymphoma, and follicular lymphoma.</p>
+              </div>
+              <div class="product-target"><span class="dot teal"></span>tisagenlecleucel</div>
+              <a href="https://www.fda.gov/vaccines-blood-biologics/cellular-gene-therapy-products/kymriah" target="_blank" rel="noreferrer">FDA product page</a>
+            </article>
+            <article class="product-card">
+              <span class="product-tag">CD19</span>
+              <div>
+                <h4>Yescarta</h4>
+                <p>Second-line and later large B-cell lymphoma, plus relapsed/refractory follicular lymphoma.</p>
+              </div>
+              <div class="product-target"><span class="dot rust"></span>axicabtagene ciloleucel</div>
+              <a href="https://www.fda.gov/vaccines-blood-biologics/cellular-gene-therapy-products/yescarta" target="_blank" rel="noreferrer">FDA product page</a>
+            </article>
+            <article class="product-card">
+              <span class="product-tag">CD19</span>
+              <div>
+                <h4>Tecartus</h4>
+                <p>Adult relapsed/refractory B-cell precursor ALL and mantle cell lymphoma.</p>
+              </div>
+              <div class="product-target"><span class="dot rust"></span>brexucabtagene autoleucel</div>
+              <a href="https://www.fda.gov/vaccines-blood-biologics/cellular-gene-therapy-products/tecartus" target="_blank" rel="noreferrer">FDA product page</a>
+            </article>
+            <article class="product-card">
+              <span class="product-tag">CD19</span>
+              <div>
+                <h4>Breyanzi</h4>
+                <p>LBCL, CLL/SLL, FL, MCL, and as of late 2025 also MZL. FDA page current as of March 11, 2026.</p>
+              </div>
+              <div class="product-target"><span class="dot teal"></span>lisocabtagene maraleucel</div>
+              <a href="https://www.fda.gov/vaccines-blood-biologics/cellular-gene-therapy-products/breyanzi" target="_blank" rel="noreferrer">FDA product page</a>
+            </article>
+            <article class="product-card">
+              <span class="product-tag">CD19</span>
+              <div>
+                <h4>Aucatzyl</h4>
+                <p>Adult relapsed or refractory B-cell precursor ALL. FDA page current as of February 27, 2026.</p>
+              </div>
+              <div class="product-target"><span class="dot teal"></span>obecabtagene autoleucel</div>
+              <a href="https://www.fda.gov/vaccines-blood-biologics/aucatzyl" target="_blank" rel="noreferrer">FDA product page</a>
+            </article>
+            <article class="product-card">
+              <span class="product-tag">BCMA</span>
+              <div>
+                <h4>Abecma</h4>
+                <p>Relapsed or refractory multiple myeloma after two or more prior lines of therapy.</p>
+              </div>
+              <div class="product-target"><span class="dot cobalt"></span>idecabtagene vicleucel</div>
+              <a href="https://www.fda.gov/vaccines-blood-biologics/abecma-idecabtagene-vicleucel" target="_blank" rel="noreferrer">FDA product page</a>
+            </article>
+            <article class="product-card">
+              <span class="product-tag">BCMA</span>
+              <div>
+                <h4>Carvykti</h4>
+                <p>Relapsed or refractory multiple myeloma after at least one prior line in lenalidomide-refractory disease.</p>
+              </div>
+              <div class="product-target"><span class="dot cobalt"></span>ciltacabtagene autoleucel</div>
+              <a href="https://www.fda.gov/vaccines-blood-biologics/cellular-gene-therapy-products/carvykti" target="_blank" rel="noreferrer">FDA product page</a>
+            </article>
+          </div>
+
+          <div class="inference fade">
+            <strong>Inference from current FDA pages:</strong> every US-approved CAR-T product on the March 2026 roster is still positioned in hematologic disease. Solid tumors remain an active trial frontier rather than an approved CAR-T category in the United States.
+          </div>
+        </div>
+      </section>
+
+      <section id="trials">
+        <div class="wrap">
+          <div class="section-head fade">
+            <div>
+              <h2>Trial Horizon</h2>
+            </div>
+            <p>
+              The ongoing pipeline is no longer just "more CD19." The design patterns are clear: reduce antigen escape with dual targets, resist checkpoint suppression with armored constructs, move faster with allogeneic platforms, and finally crack solid tumors without intolerable off-tumor damage.
+            </p>
+          </div>
+
+          <div class="snapshot-stats fade" aria-label="Selected trial snapshot statistics">
+            <article class="stat-card">
+              <strong>10</strong>
+              <span>Selected active or imminent studies shown below. This is a curated snapshot, not an exhaustive registry dump.</span>
+            </article>
+            <article class="stat-card">
+              <strong>4</strong>
+              <span>Core platform themes: dual-targeting, armored constructs, allogeneic manufacturing, and solid-tumor translation.</span>
+            </article>
+            <article class="stat-card">
+              <strong>3</strong>
+              <span>Geographic / disease directions shown: B-cell malignancy, myeloma, solid tumors, and autoimmune extension.</span>
+            </article>
+            <article class="stat-card">
+              <strong>2026</strong>
+              <span>All statuses reflect source pages accessed on March 23, 2026. Registry values can change after that date.</span>
+            </article>
+          </div>
+
+          <div class="filters fade" role="toolbar" aria-label="Trial filters">
+            <button class="filter-button active" data-filter="all" type="button">All</button>
+            <button class="filter-button" data-filter="hematologic" type="button">Hematologic</button>
+            <button class="filter-button" data-filter="myeloma" type="button">Myeloma</button>
+            <button class="filter-button" data-filter="solid" type="button">Solid Tumor</button>
+            <button class="filter-button" data-filter="armored" type="button">Armored</button>
+            <button class="filter-button" data-filter="dual-target" type="button">Dual / Bispecific</button>
+            <button class="filter-button" data-filter="allogeneic" type="button">Allogeneic</button>
+            <button class="filter-button" data-filter="autoimmune" type="button">Autoimmune</button>
+          </div>
+
+          <div class="trial-grid fade" id="trialGrid" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section id="sources">
+        <div class="wrap">
+          <div class="section-head fade">
+            <div>
+              <h2>Sources</h2>
+            </div>
+            <p>
+              Mechanistic claims come from NCI, FDA, and peer-reviewed reviews. Trial cards are linked directly to ClinicalTrials.gov study pages. Where I make an inference rather than quote a source directly, I state that plainly.
+            </p>
+          </div>
+
+          <div class="source-grid fade">
+            <article class="source-card">
+              <span class="source-number">1</span>
+              <div>
+                <h4>NCI CAR-T overview</h4>
+                <p>Core mechanism, manufacturing interval, broad adverse effect framing, approved uses through February 26, 2025.</p>
+              </div>
+              <a class="source-link" href="https://www.cancer.gov/about-cancer/treatment/research/car-t-cells" target="_blank" rel="noreferrer">Open source</a>
+            </article>
+
+            <article class="source-card">
+              <span class="source-number">2</span>
+              <div>
+                <h4>FDA approved cellular and gene therapy products</h4>
+                <p>Used to confirm the March 2026 US roster and count of approved CAR-T products.</p>
+              </div>
+              <a class="source-link" href="https://www.fda.gov/vaccines-blood-biologics/cellular-gene-therapy-products/approved-cellular-and-gene-therapy-products" target="_blank" rel="noreferrer">Open source</a>
+            </article>
+
+            <article class="source-card">
+              <span class="source-number">3</span>
+              <div>
+                <h4>FDA product pages</h4>
+                <p>BREYANZI, CARVYKTI, ABECMA, KYMRIAH, TECARTUS, YESCARTA, and AUCATZYL were used for current indications and 2025-2026 label context.</p>
+              </div>
+              <a class="source-link" href="https://www.fda.gov/vaccines-blood-biologics/cellular-gene-therapy-products/breyanzi" target="_blank" rel="noreferrer">Start with BREYANZI</a>
+            </article>
+
+            <article class="source-card">
+              <span class="source-number">4</span>
+              <div>
+                <h4>2026 review: 4-1BB vs CD28</h4>
+                <p>Used for the potency-versus-persistence framing and antigen-loss resistance context.</p>
+              </div>
+              <a class="source-link" href="https://www.sciencedirect.com/science/article/pii/S0304419X25002616" target="_blank" rel="noreferrer">Open source</a>
+            </article>
+
+            <article class="source-card">
+              <span class="source-number">5</span>
+              <div>
+                <h4>2024 CAR effector review</h4>
+                <p>Used for modes of action, engineered effector behavior, and the broader logic of next-generation construct design.</p>
+              </div>
+              <a class="source-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11274444/" target="_blank" rel="noreferrer">Open source</a>
+            </article>
+
+            <article class="source-card">
+              <span class="source-number">6</span>
+              <div>
+                <h4>2025 resistance review</h4>
+                <p>Used to synthesize antigen escape, T-cell dysfunction, and the suppressive tumor microenvironment as the main failure clusters.</p>
+              </div>
+              <a class="source-link" href="https://www.mdpi.com/2409-9279/8/5/108" target="_blank" rel="noreferrer">Open source</a>
+            </article>
+
+            <article class="source-card">
+              <span class="source-number">7</span>
+              <div>
+                <h4>FDA T-cell malignancy safety communication</h4>
+                <p>Used for the class-level long-term safety context in autologous CD19- and BCMA-directed CAR-T products.</p>
+              </div>
+              <a class="source-link" href="https://www.fda.gov/vaccines-blood-biologics/safety-availability-biologics/fda-investigating-serious-risk-t-cell-malignancy-following-bcma-directed-or-cd19-directed-autologous" target="_blank" rel="noreferrer">Open source</a>
+            </article>
+
+            <article class="source-card">
+              <span class="source-number">8</span>
+              <div>
+                <h4>ClinicalTrials.gov study pages</h4>
+                <p>Every trial card below links to its registry page and carries the latest update date extracted on March 23, 2026.</p>
+              </div>
+              <a class="source-link" href="https://clinicaltrials.gov/" target="_blank" rel="noreferrer">Open registry</a>
+            </article>
+
+            <article class="source-card">
+              <span class="source-number">9</span>
+              <div>
+                <h4>Breyanzi MZL approval notice</h4>
+                <p>Used to anchor the late-2025 shift that made MZL the newest US CAR-T indication as of March 2026.</p>
+              </div>
+              <a class="source-link" href="https://www.fda.gov/drugs/resources-information-approved-drugs/fda-approves-lisocabtagene-maraleucel-relapsed-or-refractory-marginal-zone-lymphoma" target="_blank" rel="noreferrer">Open source</a>
+            </article>
+          </div>
+
+          <p class="footer-note fade">
+            Design note: the approval summary is US-specific because the FDA pages were used as the authority layer and the user context points to the United States. Trial status is inherently unstable; the cards below should be treated as a <strong>March 23, 2026 registry snapshot</strong>, not a permanent state.
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const trials = [
+      {
+        nct: "NCT07461831",
+        title: "CD19/CD22 Bispecific CAR-T in Relapsed or Refractory Large B-Cell Lymphoma",
+        status: "Recruiting",
+        phase: "Phase 2",
+        sponsor: "Beijing Tongren Hospital",
+        lastUpdate: "2026-03-12",
+        platform: ["hematologic", "dual-target"],
+        summary: "A bispecific attempt to reduce CD19 escape in LBCL by targeting both CD19 and CD22.",
+        url: "https://clinicaltrials.gov/study/NCT07461831"
+      },
+      {
+        nct: "NCT07368270",
+        title: "Anti-PD1 Armored CD19 CAR-T in Adult Relapsed or Refractory DLBCL",
+        status: "Recruiting",
+        phase: "Phase 1",
+        sponsor: "Jiangsu Topcel-KH Pharmaceutical Co., Ltd.",
+        lastUpdate: "2026-01-28",
+        platform: ["hematologic", "armored"],
+        summary: "Adds checkpoint-resistant behavior to a CD19 platform by engineering an anti-PD1 armored construct.",
+        url: "https://clinicaltrials.gov/study/NCT07368270"
+      },
+      {
+        nct: "NCT07032129",
+        title: "Sequential BCMA/GPRC5D CAR-T in Relapsed or Refractory Multiple Myeloma",
+        status: "Recruiting",
+        phase: "Phase 1/2",
+        sponsor: "Essen Biotech",
+        lastUpdate: "2025-06-22",
+        platform: ["myeloma", "dual-target"],
+        summary: "A myeloma program built around sequential dual-antigen pressure using BCMA and GPRC5D.",
+        url: "https://clinicaltrials.gov/study/NCT07032129"
+      },
+      {
+        nct: "NCT05020444",
+        title: "TriPRIL CAR T Cells in Multiple Myeloma",
+        status: "Recruiting",
+        phase: "Phase 1",
+        sponsor: "Massachusetts General Hospital",
+        lastUpdate: "2026-02-23",
+        platform: ["myeloma"],
+        summary: "Targets myeloma with a PRIL-based binder strategy rather than a standard single-antigen commercial design.",
+        url: "https://clinicaltrials.gov/study/NCT05020444"
+      },
+      {
+        nct: "NCT07340853",
+        title: "CRISPR-Delivered Anti-BCMA CAR-T for Relapsed or Refractory Multiple Myeloma",
+        status: "Recruiting",
+        phase: "Phase 1",
+        sponsor: "Thomas Martin, MD",
+        lastUpdate: "2026-03-10",
+        platform: ["myeloma"],
+        summary: "A genome-editing flavored program that tests CRISPR-delivered anti-BCMA CAR-T cells in refractory myeloma.",
+        url: "https://clinicaltrials.gov/study/NCT07340853"
+      },
+      {
+        nct: "NCT06249256",
+        title: "Fast MSLN CAR-T Secreting PD-1 Nanobody in Advanced Solid Tumors",
+        status: "Recruiting",
+        phase: "Early Phase 1",
+        sponsor: "Shanghai Cell Therapy Group Co., Ltd.",
+        lastUpdate: "2024-02-08",
+        platform: ["solid", "armored"],
+        summary: "A mesothelin-targeted solid-tumor strategy that adds local checkpoint blockade through a secreted PD-1 nanobody.",
+        url: "https://clinicaltrials.gov/study/NCT06249256"
+      },
+      {
+        nct: "NCT07266311",
+        title: "Claudin18.2 CAR-T for Claudin18.2-Positive Solid Tumors",
+        status: "Not yet recruiting",
+        phase: "Early Phase 1",
+        sponsor: "Chengdu Ucello Biotechnology Co., Ltd.",
+        lastUpdate: "2025-12-05",
+        platform: ["solid"],
+        summary: "A gastrointestinal solid-tumor antigen program centered on Claudin18.2, one of the most watched surface targets in the space.",
+        url: "https://clinicaltrials.gov/study/NCT07266311"
+      },
+      {
+        nct: "NCT07152236",
+        title: "B7-H3 CAR-T in B7-H3-Positive Solid Tumors",
+        status: "Recruiting",
+        phase: "Exploratory / platform listed as NA",
+        sponsor: "Guangzhou Bio-gene Technology Co., Ltd.",
+        lastUpdate: "2025-08-31",
+        platform: ["solid"],
+        summary: "A broad solid-tumor program aimed at B7-H3, a recurring antigen candidate in difficult-to-treat solid disease.",
+        url: "https://clinicaltrials.gov/study/NCT07152236"
+      },
+      {
+        nct: "NCT07085104",
+        title: "ALLO-329 Allogeneic CAR-T in Autoimmune Disease (RESOLUTION)",
+        status: "Recruiting",
+        phase: "Phase 1",
+        sponsor: "Allogene Therapeutics",
+        lastUpdate: "2026-02-04",
+        platform: ["allogeneic", "autoimmune"],
+        summary: "Shows how CAR-T logic is spilling beyond oncology toward immune reset in SLE, inflammatory myopathy, and systemic sclerosis.",
+        url: "https://clinicaltrials.gov/study/NCT07085104"
+      },
+      {
+        nct: "NCT06080191",
+        title: "Allogeneic Second-Generation CD19 CAR-T for Pediatric Relapsed or Refractory B-ALL",
+        status: "Recruiting",
+        phase: "Phase 1",
+        sponsor: "Bambino Gesu Hospital and Research Institute",
+        lastUpdate: "2024-04-28",
+        platform: ["hematologic", "allogeneic"],
+        summary: "An off-the-shelf direction in B-ALL that targets the manufacturing bottleneck of autologous treatment.",
+        url: "https://clinicaltrials.gov/study/NCT06080191"
+      }
+    ];
+
+    const trialGrid = document.getElementById("trialGrid");
+    const filterButtons = Array.from(document.querySelectorAll(".filter-button"));
+
+    function statusClass(status) {
+      const key = status.toLowerCase().replace(/\s+/g, "-");
+      return key;
+    }
+
+    function titleCaseTag(tag) {
+      const map = {
+        "hematologic": "Hematologic",
+        "myeloma": "Myeloma",
+        "solid": "Solid Tumor",
+        "armored": "Armored",
+        "dual-target": "Dual / Bispecific",
+        "allogeneic": "Allogeneic",
+        "autoimmune": "Autoimmune"
+      };
+      return map[tag] || tag;
+    }
+
+    function renderTrials(filter = "all") {
+      trialGrid.innerHTML = "";
+
+      const visible = trials.filter((trial) => filter === "all" || trial.platform.includes(filter));
+
+      visible.forEach((trial) => {
+        const card = document.createElement("article");
+        card.className = "trial-card";
+        const tags = trial.platform.map((tag) => `<span class="mini-tag">${titleCaseTag(tag)}</span>`).join("");
+
+        card.innerHTML = `
+          <div class="trial-top">
+            <div>
+              <div class="product-tag">${trial.nct}</div>
+              <h4>${trial.title}</h4>
+            </div>
+            <span class="status-badge ${statusClass(trial.status)}">${trial.status}</span>
+          </div>
+          <p>${trial.summary}</p>
+          <div class="trial-tags">${tags}</div>
+          <div class="trial-meta">
+            <div><strong>Phase:</strong> ${trial.phase}</div>
+            <div><strong>Sponsor:</strong> ${trial.sponsor}</div>
+            <div><strong>Last registry update:</strong> ${trial.lastUpdate}</div>
+          </div>
+          <a href="${trial.url}" target="_blank" rel="noreferrer">Open ClinicalTrials.gov</a>
+        `;
+
+        trialGrid.appendChild(card);
+      });
+    }
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+        renderTrials(button.dataset.filter);
+      });
+    });
+
+    renderTrials();
+
+    const fadeEls = document.querySelectorAll(".fade");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.14
+    });
+
+    fadeEls.forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
